@@ -9,10 +9,12 @@ import com.example.spring.data.repository.UnidadeTrabalhoRepository;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 @Service
 public class CrudFuncionarioService {
@@ -41,6 +43,7 @@ public class CrudFuncionarioService {
             System.out.println("2 - Editar funcionário");
             System.out.println("3 - Excluir funcionário");
             System.out.println("4 - Visualizar funcionário");
+            System.out.println("5 - Visualizar salários dos funcionários");
             int action = scanner.nextInt();
 
             switch (action) {
@@ -48,6 +51,7 @@ public class CrudFuncionarioService {
                 case 2 -> editar(scanner);
                 case 3 -> deletar(scanner);
                 case 4 -> visualizar();
+                case 5 -> retornarSalarioFuncionarios();
                 default -> system = false;
             }
         }
@@ -144,4 +148,12 @@ public class CrudFuncionarioService {
         }
         return unidades;
     }
+
+    private void retornarSalarioFuncionarios(){
+        List<Funcionario> list = funcionarioRepository.findSalarioFuncionario();
+        list.forEach(f -> System.out.println("Funcionario - ID: " + f.getId()
+                + ", nome: " + f.getNome()
+                + ", salario " + f.getSalario()));
+    }
+
 }
